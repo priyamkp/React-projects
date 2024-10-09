@@ -1,6 +1,6 @@
 import React, { useState, useContext, createContext } from "react";
-import TodoProvider, { TodoContext } from "./ContextProvider";
-
+import TodoProvider from "./ContextProvider";
+export const TodoContext = createContext();
 const TodoForm = (props) => {
   const { todo, setTodo, addTodo } = useContext(TodoContext);
 

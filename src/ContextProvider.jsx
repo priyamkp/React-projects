@@ -1,5 +1,5 @@
 import React, { useState, createContext } from "react";
-export const TodoContext = createContext();
+import { TodoContext } from "./Todos";
 const TodoProvider = ({ children }) => {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
