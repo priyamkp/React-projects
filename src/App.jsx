@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -81,3 +82,76 @@ function Users() {
 }
 
 
+=======
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addTodo, deleteTodo, editTodo } from "./Action";
+
+export default function App() {
+  const [inputValue, setInputValue] = useState("");
+  const [editIndex, setEditIndex] = useState(null); 
+  const [editValue, setEditValue] = useState(""); 
+  
+  const todos = useSelector((state) => state.todos);
+  const dispatch = useDispatch();
+
+  const addTodoItem = () => {
+      dispatch(addTodo(inputValue));
+      setInputValue("");
+  };
+
+  const deleteItem = (index) => {
+    dispatch(deleteTodo(index));
+  };
+
+  const startEditing = (index, currentText) => {
+    setEditIndex(index);
+    setEditValue(currentText); 
+  };
+
+  const saveEditItem = (index) => {
+    dispatch(editTodo(index, editValue));
+    setEditIndex(null); 
+    setEditValue("");
+  };
+
+  return (
+    <>
+      <h1>Todo List</h1>
+      <input
+        type="text"
+        value={inputValue}
+        placeholder="Add your todo"
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+      <button type="submit" onClick={addTodoItem}>Add Todo</button>
+
+      <ul>
+        {todos.length > 0 &&
+          todos.map((todo, index) => (
+            <li key={index}>
+              {editIndex === index ? (
+               
+                <>
+                  <input
+                    type="text"
+                    value={editValue}
+                    onChange={(e) => setEditValue(e.target.value)}
+                  />
+                  <button onClick={() => saveEditItem(index)}>Save</button>
+                  <button onClick={() => setEditIndex(null)}>Cancel</button>
+                </>
+              ) : (
+                <>
+                  <span>{todo.text}</span>
+                  <button onClick={() => startEditing(index, todo.text)}>Edit</button>
+                  <button onClick={() => deleteItem(index, alert("Remove permanently"))}>Remove</button>
+                </>
+              )}
+            </li>
+          ))}
+      </ul>
+    </>
+  );
+}
+>>>>>>> 9e461b3 (Added redux project)
